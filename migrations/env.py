@@ -13,11 +13,10 @@ from alembic import context
 
 from core.database import Base
 from core.config import settings
-from db.models import models  # noqa — импортируем модели чтобы metadata знала о них
+from db.models import models  # noqa
 
 config = context.config
 
-# Берём DATABASE_URL из нашего конфига (уже сконвертирован в asyncpg)
 config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
 
 if config.config_file_name is not None:
