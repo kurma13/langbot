@@ -1,0 +1,101 @@
+{
+  "slug": "kz-b1-opinions",
+  "title": "Мнения и суждения",
+  "description": "Как выразить своё мнение и согласие/несогласие на казахском.",
+  "language": "kz",
+  "level": "B1",
+  "lesson_type": "scenario",
+  "scenario_context": "💬 Разговор",
+  "estimated_minutes": 15,
+  "xp_reward": 30,
+  "order_index": 1,
+  "items": [
+    {
+      "order_index": 1,
+      "task_type": "multiple_choice",
+      "is_reviewable": true,
+      "front_text": "Менің ойымша...",
+      "back_text": "По моему мнению... / Я думаю...",
+      "content": {
+        "question": "Как начать фразу 'По моему мнению'?",
+        "options": [
+          "Менің атым...",
+          "Менің ойымша...",
+          "Менің үйім...",
+          "Менің досым..."
+        ],
+        "correct_index": 1,
+        "explanation": "Менің ойымша = по моему мнению. ой = мысль/мнение"
+      }
+    },
+    {
+      "order_index": 2,
+      "task_type": "translation",
+      "is_reviewable": true,
+      "front_text": "Мен келісемін",
+      "back_text": "Я согласен",
+      "content": {
+        "source_text": "Я не согласен с тобой",
+        "source_lang": "ru",
+        "target_lang": "kz",
+        "correct_answer": "Мен сенімен келіспеймін",
+        "acceptable_answers": ["мен сенімен келіспеймін"],
+        "hint": "келісу = соглашаться. келіспеу = не соглашаться. -мен = с тобой"
+      }
+    },
+    {
+      "order_index": 3,
+      "task_type": "multiple_choice",
+      "is_reviewable": true,
+      "front_text": "дұрыс",
+      "back_text": "правильно / верно",
+      "content": {
+        "question": "Собеседник говорит 'дұрыс' — что он имеет в виду?",
+        "options": ["неправильно", "возможно", "правильно", "непонятно"],
+        "correct_index": 2,
+        "explanation": "дұрыс = правильно/верно. Бұрыс = неправильно"
+      }
+    },
+    {
+      "order_index": 4,
+      "task_type": "fill_blank",
+      "is_reviewable": false,
+      "front_text": null,
+      "back_text": null,
+      "content": {
+        "template": "Менің ___ бұл мәселе өте маңызды (По моему мнению эта проблема очень важна)",
+        "options": ["ойымша", "атым", "үйім", "жұмысым"],
+        "correct_index": 0,
+        "explanation": "ойымша = по моему мнению. маңызды = важный"
+      }
+    },
+    {
+      "order_index": 5,
+      "task_type": "translation",
+      "is_reviewable": false,
+      "front_text": null,
+      "back_text": null,
+      "content": {
+        "source_text": "Это интересная идея, но я думаю иначе",
+        "source_lang": "ru",
+        "target_lang": "kz",
+        "correct_answer": "Бұл қызықты идея, бірақ мен басқаша ойлаймын",
+        "acceptable_answers": ["бұл қызықты идея бірақ мен басқаша ойлаймын"],
+        "hint": "бірақ = но/однако. басқаша = иначе. ойлау = думать"
+      }
+    },
+    {
+      "order_index": 6,
+      "task_type": "multiple_choice",
+      "is_reviewable": true,
+      "front_text": "мүмкін",
+      "back_text": "возможно / может быть",
+      "content": {
+        "question": "Что значит 'мүмкін'?",
+        "options": ["точно", "никогда", "возможно", "всегда"],
+        "correct_index": 2,
+        "explanation": "мүмкін = возможно/может быть. Мүмкін емес = невозможно"
+      }
+    }
+  ]
+}
