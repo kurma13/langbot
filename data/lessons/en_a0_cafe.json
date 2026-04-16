@@ -1,0 +1,141 @@
+{
+  "slug": "en-a0-cafe",
+  "title": "В кафе: заказ еды",
+  "description": "Учимся заказывать в кафе через готовые разговорные блоки (chunks).",
+  "language": "en",
+  "level": "A0",
+  "lesson_type": "scenario",
+  "scenario_context": "☕ В кафе",
+  "estimated_minutes": 15,
+  "xp_reward": 15,
+  "order_index": 1,
+  "items": [
+    {
+      "order_index": 1,
+      "task_type": "multiple_choice",
+      "is_reviewable": true,
+      "front_text": "Can I have...?",
+      "back_text": "Можно мне...? (заказ)",
+      "content": {
+        "question": "Как попросить что-то в кафе?",
+        "options": [
+          "Can I have a coffee, please?",
+          "I want coffee!",
+          "Give me coffee",
+          "Coffee, now!"
+        ],
+        "correct_index": 0,
+        "explanation": "'Can I have...?' — вежливый универсальный способ попросить. Запомни этот chunk целиком!"
+      }
+    },
+    {
+      "order_index": 2,
+      "task_type": "multiple_choice",
+      "is_reviewable": true,
+      "front_text": "How much is it?",
+      "back_text": "Сколько стоит?",
+      "content": {
+        "question": "Как спросить цену?",
+        "options": [
+          "What is price?",
+          "How much is it?",
+          "How many cost?",
+          "Price please?"
+        ],
+        "correct_index": 1,
+        "explanation": "'How much is it?' — один из самых нужных вопросов. Используй везде!"
+      }
+    },
+    {
+      "order_index": 3,
+      "task_type": "phrase_build",
+      "is_reviewable": false,
+      "front_text": null,
+      "back_text": null,
+      "content": {
+        "instruction": "Собери фразу: 'Можно мне, пожалуйста, чай?'",
+        "words": ["Can", "I", "have", "tea", "please", "want", "a"],
+        "correct_order": [0, 1, 2, 6, 3, 4],
+        "correct_phrase": "Can I have a tea please"
+      }
+    },
+    {
+      "order_index": 4,
+      "task_type": "translation",
+      "is_reviewable": true,
+      "front_text": "I'd like...",
+      "back_text": "Я бы хотел/хотела...",
+      "content": {
+        "source_text": "Я бы хотел стакан воды",
+        "source_lang": "ru",
+        "target_lang": "en",
+        "correct_answer": "I'd like a glass of water",
+        "acceptable_answers": [
+          "I would like a glass of water",
+          "Can I have a glass of water",
+          "I want a glass of water"
+        ],
+        "hint": "I'd like = I would like — вежливее чем 'I want'"
+      }
+    },
+    {
+      "order_index": 5,
+      "task_type": "fill_blank",
+      "is_reviewable": false,
+      "front_text": null,
+      "back_text": null,
+      "content": {
+        "template": "— Here's your coffee.\n— ___, it's delicious!",
+        "options": ["Thank you", "Sorry", "Please", "Excuse me"],
+        "correct_index": 0,
+        "explanation": "Thank you (Thanks) — обязательно после получения заказа"
+      }
+    },
+    {
+      "order_index": 6,
+      "task_type": "multiple_choice",
+      "is_reviewable": true,
+      "front_text": "For here or to go?",
+      "back_text": "Здесь или с собой?",
+      "content": {
+        "question": "Кассир спрашивает 'For here or to go?' — что он хочет узнать?",
+        "options": [
+          "Какой размер кофе",
+          "Здесь или с собой",
+          "С молоком или без",
+          "Какой способ оплаты"
+        ],
+        "correct_index": 1,
+        "explanation": "'For here' = здесь, 'to go' = с собой. Этот chunk слышишь в каждом кафе!"
+      }
+    },
+    {
+      "order_index": 7,
+      "task_type": "translation",
+      "is_reviewable": false,
+      "front_text": null,
+      "back_text": null,
+      "content": {
+        "source_text": "Счёт, пожалуйста",
+        "source_lang": "ru",
+        "target_lang": "en",
+        "correct_answer": "Check, please",
+        "acceptable_answers": ["The bill please", "Bill please", "Can I have the check"],
+        "hint": "Check (US) = Bill (UK) = счёт в ресторане"
+      }
+    },
+    {
+      "order_index": 8,
+      "task_type": "voice",
+      "is_reviewable": false,
+      "front_text": null,
+      "back_text": null,
+      "content": {
+        "prompt": "Произнеси: 'Can I have a coffee, please?'",
+        "expected_text": "can i have a coffee please",
+        "phonetic_hint": "Кэн ай хэв э кОфи плиз",
+        "similarity_threshold": 0.65
+      }
+    }
+  ]
+}

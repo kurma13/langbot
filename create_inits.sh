@@ -1,0 +1,15 @@
+touch /home/claude/langbot/bot/__init__.py
+touch /home/claude/langbot/bot/handlers/__init__.py
+touch /home/claude/langbot/bot/keyboards/__init__.py
+touch /home/claude/langbot/bot/middlewares/__init__.py
+touch /home/claude/langbot/bot/states/__init__.py
+touch /home/claude/langbot/core/__init__.py
+touch /home/claude/langbot/db/__init__.py
+touch /home/claude/langbot/services/__init__.py
+touch /home/claude/langbot/services/learning/__init__.py
+touch /home/claude/langbot/services/spaced_repetition/__init__.py
+touch /home/claude/langbot/services/voice/__init__.py
+touch /home/claude/langbot/services/scheduler/__init__.py
+touch /home/claude/langbot/utils/__init__.py
+touch /home/claude/langbot/api/__init__.py
+touch /home/claude/langbot/migrations/__init__.py

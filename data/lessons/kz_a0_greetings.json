@@ -1,0 +1,122 @@
+{
+  "slug": "kz-a0-greetings",
+  "title": "Знакомство и приветствие",
+  "description": "Первый контакт: как поздороваться и представиться по-казахски.",
+  "language": "kz",
+  "level": "A0",
+  "lesson_type": "scenario",
+  "scenario_context": "🏪 В магазине / На улице",
+  "estimated_minutes": 12,
+  "xp_reward": 15,
+  "order_index": 1,
+  "items": [
+    {
+      "order_index": 1,
+      "task_type": "multiple_choice",
+      "is_reviewable": false,
+      "front_text": null,
+      "back_text": null,
+      "content": {
+        "question": "Как будет 'Привет' на казахском?",
+        "options": ["Сәлем", "Рақмет", "Иә", "Жоқ"],
+        "correct_index": 0,
+        "explanation": "Сәлем — неформальное приветствие (как 'Привет'). Для старших используй Сәлеметсіз бе"
+      }
+    },
+    {
+      "order_index": 2,
+      "task_type": "multiple_choice",
+      "is_reviewable": true,
+      "front_text": "Мен",
+      "back_text": "Я (казахский)",
+      "content": {
+        "question": "Что значит 'Мен'?",
+        "options": ["Ты", "Я", "Он", "Мы"],
+        "correct_index": 1,
+        "explanation": "Мен = Я. Запомни: Мен — Я, Сен — Ты, Ол — Он/Она"
+      }
+    },
+    {
+      "order_index": 3,
+      "task_type": "fill_blank",
+      "is_reviewable": false,
+      "front_text": null,
+      "back_text": null,
+      "content": {
+        "template": "Мен ___ (меня зовут Алибек)",
+        "options": ["Алибекпін", "Алибекмен", "Алибекке", "Алибектен"],
+        "correct_index": 0,
+        "explanation": "Окончание -мін/-пін/-бін добавляется к имени: Алибек + пін = Алибекпін (Я — Алибек)"
+      }
+    },
+    {
+      "order_index": 4,
+      "task_type": "translation",
+      "is_reviewable": true,
+      "front_text": "Рақмет",
+      "back_text": "Спасибо",
+      "content": {
+        "source_text": "Спасибо",
+        "source_lang": "ru",
+        "target_lang": "kz",
+        "correct_answer": "Рақмет",
+        "acceptable_answers": ["Рахмет"],
+        "hint": "Рақмет — универсальное 'спасибо' в казахском"
+      }
+    },
+    {
+      "order_index": 5,
+      "task_type": "phrase_build",
+      "is_reviewable": false,
+      "front_text": null,
+      "back_text": null,
+      "content": {
+        "instruction": "Собери фразу: 'Я не понимаю'",
+        "words": ["Мен", "түсінбеймін", "бармын", "жоқпын", "білемін"],
+        "correct_order": [0, 1],
+        "correct_phrase": "Мен түсінбеймін"
+      }
+    },
+    {
+      "order_index": 6,
+      "task_type": "multiple_choice",
+      "is_reviewable": true,
+      "front_text": "Сәлем, қалайсыз?",
+      "back_text": "Привет, как дела?",
+      "content": {
+        "question": "Что значит 'Қалайсыз?'",
+        "options": ["Кто ты?", "Где ты?", "Как дела?", "Сколько лет?"],
+        "correct_index": 2,
+        "explanation": "Қалайсыз? — вежливое 'как дела?'. Неформально: Қалайсың?"
+      }
+    },
+    {
+      "order_index": 7,
+      "task_type": "translation",
+      "is_reviewable": false,
+      "front_text": null,
+      "back_text": null,
+      "content": {
+        "source_text": "Меня зовут Камила",
+        "source_lang": "ru",
+        "target_lang": "kz",
+        "correct_answer": "Менің атым Камила",
+        "acceptable_answers": ["Мен Камиламын", "Мен Камила"],
+        "hint": "Менің атым = Моё имя. Или проще: Мен + имя + мын/мін"
+      }
+    },
+    {
+      "order_index": 8,
+      "task_type": "voice",
+      "is_reviewable": false,
+      "front_text": null,
+      "back_text": null,
+      "content": {
+        "prompt": "Произнеси вслух: 'Сәлем, менің атым ___ (твоё имя)'",
+        "expected_text": "сәлем",
+        "phonetic_hint": "Сэ-лем",
+        "similarity_threshold": 0.6
+      }
+    }
+  ]
+}

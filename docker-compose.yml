@@ -1,0 +1,92 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: langbot_postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-langbot}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-langbot_secret}
+      POSTGRES_DB: ${POSTGRES_DB:-langbot}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-langbot}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: langbot_redis
+    command: redis-server --requirepass ${REDIS_PASSWORD:-redis_secret}
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: langbot_bot
+    command: python -m bot.main
+    environment:
+      - BOT_TOKEN=${BOT_TOKEN}
+      - DATABASE_URL=postgresql+asyncpg://${POSTGRES_USER:-langbot}:${POSTGRES_PASSWORD:-langbot_secret}@postgres:5432/${POSTGRES_DB:-langbot}
+      - REDIS_URL=redis://:${REDIS_PASSWORD:-redis_secret}@redis:6379/0
+      - GOOGLE_STT_KEY=${GOOGLE_STT_KEY:-}
+      - ADMIN_IDS=${ADMIN_IDS:-}
+    volumes:
+      - ./:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: langbot_api
+    command: uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://${POSTGRES_USER:-langbot}:${POSTGRES_PASSWORD:-langbot_secret}@postgres:5432/${POSTGRES_DB:-langbot}
+      - REDIS_URL=redis://:${REDIS_PASSWORD:-redis_secret}@redis:6379/0
+      - API_SECRET=${API_SECRET:-supersecret}
+    volumes:
+      - ./:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  migrate:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: langbot_migrate
+    command: alembic upgrade head
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://${POSTGRES_USER:-langbot}:${POSTGRES_PASSWORD:-langbot_secret}@postgres:5432/${POSTGRES_DB:-langbot}
+    volumes:
+      - ./:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+
+volumes:
+  postgres_data:
+  redis_data:
