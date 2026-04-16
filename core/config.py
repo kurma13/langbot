@@ -12,8 +12,8 @@ def _fix_db_url(url: str) -> str:
 
 class Settings:
     # ─── ВСТАВЬ СВОИ ДАННЫЕ СЮДА ───────────────────────
-    BOT_TOKEN: str = "СЮДА_ТОКЕН_ОТ_BOTFATHER"
-    ADMIN_IDS: str = "СЮДА_ТВОЙ_TELEGRAM_ID"
+    BOT_TOKEN: str = "8390317097:AAH46xNP9JR62GbSQqFeQ4hJ42Fkv6W0wMk"
+    ADMIN_IDS: str = "8390317097"
     API_SECRET: str = "mysecret123"
     # ────────────────────────────────────────────────────
 
