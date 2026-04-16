@@ -1,59 +1,43 @@
-from pydantic_settings import BaseSettings
-from typing import Optional
 import os
+from typing import Optional
+from dataclasses import dataclass
 
 
-class Settings(BaseSettings):
-    # Telegram
-    BOT_TOKEN: str
-    ADMIN_IDS: str = ""
+@dataclass
+class Settings:
+    # ─── СЮДА ВСТАВЬ СВОИ ДАННЫЕ ───────────────────────────
+    BOT_TOKEN: str = "8390317097:AAH46xNP9JR62GbSQqFeQ4hJ42Fkv6W0wMk"
+    ADMIN_IDS: str = "8390317097"
+    API_SECRET: str = "mysecret123"
+    # ────────────────────────────────────────────────────────
 
-    # Database
-    # Railway автоматически выставляет DATABASE_URL при подключении Postgres сервиса.
-    # Формат Railway: postgresql://user:pass@host/db  →  нам нужен asyncpg
-    DATABASE_URL: str = "postgresql+asyncpg://langbot:secret@localhost:5432/langbot"
+    # Railway сам подставляет DATABASE_URL и REDIS_URL
+    # через переменные своих сервисов — не трогай
+    DATABASE_URL: str = os.environ.get("DATABASE_URL", "postgresql+asyncpg://localhost/langbot")
+    REDIS_URL: str = os.environ.get("REDIS_URL", "redis://localhost:6379/0")
 
-    # Redis
-    # Railway выставляет REDIS_URL автоматически при подключении Redis сервиса
-    REDIS_URL: str = "redis://localhost:6379/0"
+    GOOGLE_STT_KEY: Optional[str] = os.environ.get("GOOGLE_STT_KEY")
 
-    # API
-    API_SECRET: str = "supersecret"
-
-    # Voice (Google STT)
-    GOOGLE_STT_KEY: Optional[str] = None
-
-    # App
     DEBUG: bool = False
     TIMEZONE: str = "Asia/Almaty"
 
-    # Learning config
     DAILY_NEW_CARDS: int = 10
     DAILY_REVIEW_LIMIT: int = 50
     LESSON_TIMEOUT_MINUTES: int = 30
+
+    def __post_init__(self):
+        # Railway даёт postgres:// — конвертируем в asyncpg
+        url = self.DATABASE_URL
+        if url.startswith("postgres://"):
+            self.DATABASE_URL = url.replace("postgres://", "postgresql+asyncpg://", 1)
+        elif url.startswith("postgresql://") and "+asyncpg" not in url:
+            self.DATABASE_URL = url.replace("postgresql://", "postgresql+asyncpg://", 1)
 
     @property
     def admin_id_list(self) -> list[int]:
         if not self.ADMIN_IDS:
             return []
         return [int(x.strip()) for x in self.ADMIN_IDS.split(",") if x.strip()]
-
-    def model_post_init(self, __context):
-        """
-        Railway даёт DATABASE_URL как postgres:// или postgresql://
-        asyncpg требует postgresql+asyncpg://  — исправляем автоматически.
-        """
-        url = self.DATABASE_URL
-        if url.startswith("postgres://"):
-            object.__setattr__(self, "DATABASE_URL",
-                url.replace("postgres://", "postgresql+asyncpg://", 1))
-        elif url.startswith("postgresql://") and "+asyncpg" not in url:
-            object.__setattr__(self, "DATABASE_URL",
-                url.replace("postgresql://", "postgresql+asyncpg://", 1))
-
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
 
 
 settings = Settings()
