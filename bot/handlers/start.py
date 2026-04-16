@@ -186,3 +186,18 @@ async def cmd_help(message: Message):
         parse_mode="HTML",
         reply_markup=kb_main_menu(),
     )
+
+@router.message(Command("reset"))
+async def cmd_reset(message: Message, state: FSMContext, session: AsyncSession):
+    user_repo = UserRepository(session)
+    user = await user_repo.get_by_telegram_id(message.from_user.id)
+    if not user:
+        return
+    await user_repo.update_field(
+        user.id,
+        current_level=CEFRLevel.A0,
+        onboarding_done=False,
+        placement_done=False,
+    )
+    await state.clear()
+    await message.answer("✅ Прогресс сброшен! Напиши /start")
