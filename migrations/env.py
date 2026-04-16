@@ -12,12 +12,13 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 from alembic import context
 
 from core.database import Base
+from core.config import settings
 from db.models import models  # noqa — импортируем модели чтобы metadata знала о них
 
 config = context.config
 
-# DATABASE_URL из env
-config.set_main_option("sqlalchemy.url", os.environ["DATABASE_URL"])
+# Берём DATABASE_URL из нашего конфига (уже сконвертирован в asyncpg)
+config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
 
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
