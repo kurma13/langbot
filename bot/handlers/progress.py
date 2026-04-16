@@ -6,15 +6,14 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func
 
 from db.repositories import UserRepository
-from db.models import UserProgress, Lesson, Language
+from db.models import UserProgress, Lesson, Language, Review
 from bot.states.states import SettingsStates
 from bot.keyboards.keyboards import kb_main_menu, kb_settings, kb_choose_language
+from datetime import datetime, timezone
 from loguru import logger
 
 router = Router()
 
-
-# ─── Progress ─────────────────────────────────────────────────────────────────
 
 @router.message(F.text == "📊 Прогресс")
 @router.message(Command("progress"))
@@ -26,20 +25,22 @@ async def cmd_progress(message: Message, session: AsyncSession):
         await message.answer("Сначала пройди /start.")
         return
 
-    # Статистика
-    result = await session.execute(
-        select(
-            func.count(UserProgress.id).label("total"),
-            func.sum(func.cast(UserProgress.completed, type_=None)).label("completed"),
-        ).where(UserProgress.user_id == user.id)
+    # Всего начато уроков
+    total_result = await session.execute(
+        select(func.count(UserProgress.id)).where(UserProgress.user_id == user.id)
     )
-    row = result.one()
-    total = row.total or 0
-    completed = int(row.completed or 0)
+    total = total_result.scalar() or 0
+
+    # Завершённых уроков
+    completed_result = await session.execute(
+        select(func.count(UserProgress.id)).where(
+            UserProgress.user_id == user.id,
+            UserProgress.completed == True,
+        )
+    )
+    completed = completed_result.scalar() or 0
 
     # Повторения
-    from db.models import Review
-    from datetime import datetime, timezone
     due_count_result = await session.execute(
         select(func.count(Review.id)).where(
             Review.user_id == user.id,
@@ -56,7 +57,6 @@ async def cmd_progress(message: Message, session: AsyncSession):
     lang_emoji = "🇰🇿" if user.target_language == Language.KAZAKH else "🇬🇧"
     lang_name = "Казахский" if user.target_language == Language.KAZAKH else "Английский"
 
-    # Уровень прогресс-бар
     level_display = {
         "A0": "A0 ▓░░░░ A1",
         "A1": "A1 ▓▓░░░ A2",
@@ -79,8 +79,6 @@ async def cmd_progress(message: Message, session: AsyncSession):
 
     await message.answer(text, parse_mode="HTML", reply_markup=kb_main_menu())
 
-
-# ─── Settings ─────────────────────────────────────────────────────────────────
 
 @router.message(F.text == "⚙️ Настройки")
 @router.message(Command("settings"))
@@ -110,7 +108,7 @@ async def cmd_settings(message: Message, state: FSMContext, session: AsyncSessio
 async def on_settings_notify(callback: CallbackQuery, state: FSMContext):
     await callback.message.edit_text(
         "⏰ В какое время присылать напоминание?\n\n"
-        "Напиши число от 6 до 22 (час в формате Астана UTC+5)\n"
+        "Напиши число от 0 до 23 (час)\n"
         "Например: <code>9</code> — напоминание в 09:00",
         parse_mode="HTML",
     )
@@ -155,8 +153,5 @@ async def on_settings_language(callback: CallbackQuery, state: FSMContext):
 async def on_settings_stats(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
     await state.clear()
     await callback.message.delete()
-    # Показываем прогресс
-    fake = callback.message
-    fake.from_user = callback.from_user
     await cmd_progress(callback.message, session)
     await callback.answer()
