@@ -55,7 +55,7 @@ async def main():
 
     try:
         logger.info("Bot polling started")
-        await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
+        await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types(), drop_pending_updates=True)
     finally:
         await on_shutdown()
 
